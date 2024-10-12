@@ -1,0 +1,82 @@
+﻿@model CompanyDB.Models.Company
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Company</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CompanyName" class="control-label"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyEmail" class="control-label"></label>
+                <input asp-for="CompanyEmail" class="form-control" />
+                <span asp-validation-for="CompanyEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyLogo" class="control-label"></label>
+                <input asp-for="CompanyLogo" class="form-control" />
+                <span asp-validation-for="CompanyLogo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyWebsite" class="control-label"></label>
+                <input asp-for="CompanyWebsite" class="form-control" />
+                <span asp-validation-for="CompanyWebsite" class="text-danger"></span>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>                        
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var employee in Model.Employees)*@
+                    @for (int i = 0; i < Model.Employees.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.EditorFor(e => e.Employees[i].FirstName, new { htmlAttributes = new {@class = "form-control"}});
+                                @*<input asp-for="@employee.FirstName" class="form-control" />*@
+                            </td>
+                            <td>
+                                @*<input asp-for="@employee.LastName" class="form-control" />*@
+                            </td>
+                            <td>
+                                @*<input asp-for="@employee.Email" class="form-control" />*@
+                            </td>
+                            <td>
+                                @*<input asp-for="@employee.Phone" class="form-control" />*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

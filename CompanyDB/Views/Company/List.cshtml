@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CompanyDB.Models.Company>
+
+@{
+    ViewData["Title"] = "List of Companies";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyLogo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyWebsite)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyLogo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyWebsite)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CompanyID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CompanyID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CompanyID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
