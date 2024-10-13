@@ -13,7 +13,7 @@
         <form id="CompanyForm" enctype="multipart/form-data" asp-action="Create">
             <div class="row">
                 <div class="col-md-6">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
                     <div class="form-group">
                         <label asp-for="CompanyName" class="control-label"></label>
                         <input asp-for="CompanyName" class="form-control" />
@@ -43,13 +43,17 @@
                         <div class="custom-file">
                             <input asp-for="CompanyLogo" class="custom-file-input" id="customFile"
                                    onchange="document.getElementById('PreviewPhoto').src = window.URL.createObjectURL(this.files[0])" />
-                            <label class="custom-file-label" for="customFile">Choose a logo</label>
+                            <label class="custom-file-label" for="customFile">Choose file</label>
                         </div>
                         <span asp-validation-for="CompanyLogo" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-4">
-                        <img id="PreviewPhoto" src="~/36-200x300.jpg" alt="Logo Image"
+         
+                    <div class="col-4">
+                        <div class="form-group col-12 justify-content-center align-middle">
+                        <img id="PreviewPhoto" src="~/images/icons8-no-image-50.png" alt="Logo Image"
                              width="125" height="125" style="border:1px; margin-top:20px;" />
+                        </div>
+                        
                     </div>
                 </div>
                 
@@ -82,7 +86,7 @@
                                     </td>
                                     <td> </td>
                                     <td>
-                                        <button id="btndummy-@i" type="button" class="btn btn-sm invisible">Du   mmy</button>
+                                        
                                         <button id="btnadd-@i" type="button" class="btn btn-sm btn-secondary visible" onclick="AddItem(this)"
                                          style="left:94%; position:absolute;">Add</button>
                                         <button id="btnremove-@i" type="button" class="btn btn-sm btn-danger visible" onclick="DeleteItem(this)" 
@@ -107,7 +111,7 @@
                 </div>
                 </form>
                 </div>
-            </div>
+            
            
             
 
@@ -115,8 +119,9 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <script type="text/javascript">
-        $(".custom-file-input".on("change", function () {
+        $(".custom-file-input").on("change", function () {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings("custom-file-label").addClass("selected").html(fileName);
         });

@@ -74,7 +74,7 @@ namespace CompanyDB.Controllers
         public IActionResult Details(int id)
         {
             Company company = _context.Companies
-                .Include(e => e.Employees)
+                .Include(c => c.Employees)
                 .Where(c => c.CompanyID == id)
                 .FirstOrDefault();
             return View(company);
