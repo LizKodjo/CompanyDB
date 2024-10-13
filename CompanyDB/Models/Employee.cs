@@ -6,7 +6,7 @@ namespace CompanyDB.Models
     {
         public int EmployeeID { get; set; }
         public int CompanyID { get; set; }
-        public virtual Company Company { get; private set; }
+        public virtual Company? Company { get; private set; }
 
         [StringLength(50)]
         public required string FirstName { get; set; }

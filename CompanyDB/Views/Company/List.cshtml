@@ -3,24 +3,44 @@
 @{
     ViewData["Title"] = "List of Companies";
 }
+<style>
+    .avatar{
+        vertical-align:middle;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+</style>
 
-<h1>List</h1>
+@* <h1>List</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p> *@
+
+<div class="container btn-group">
+    <div class="col-10">
+        <h1>Companies</h1>
+    </div>
+    <div class="col-2 btn-group justify-content-end p-3">
+        <a asp-action="Create" class="btn btn-sm btn-success">Create New</a>
+    </div>
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyLogo)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.CompanyName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CompanyEmail)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyLogo)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.CompanyWebsite)
             </th>
@@ -31,21 +51,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @* @Html.DisplayFor(modelItem => item.CompanyLogo) *@
+                <img src="~/36-200x300.jpg" alt="" class="avatar" />
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyLogo)
-            </td>
+            </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyWebsite)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CompanyID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CompanyID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CompanyID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.CompanyID" class="btn btn-sm btn-info">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CompanyID" class="btn btn-sm btn-primary ml-1">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CompanyID" class="btn btn-sm btn-danger ml-1">Delete</a>
             </td>
         </tr>
 }

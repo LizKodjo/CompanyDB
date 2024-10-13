@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyDB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241012175155_Initial Migration")]
-    partial class InitialMigration
+    [Migration("20241013102509_AddedLogoUrl")]
+    partial class AddedLogoUrl
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

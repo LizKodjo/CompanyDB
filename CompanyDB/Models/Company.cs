@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompanyDB.Models
 {
@@ -10,7 +12,14 @@ namespace CompanyDB.Models
         public required string CompanyName { get; set; }
         [StringLength(100)]
         public string? CompanyEmail { get; set; }
-        public string CompanyLogo { get; set; }
+
+
+        [DisplayName("Logo")]        
+        public string? CompanyLogo { get; set; }
+        [NotMapped]
+        public IFormFile? LogoImg { get; set; }
+
+
         [StringLength(100)]
         public string? CompanyWebsite { get; set; }
 
