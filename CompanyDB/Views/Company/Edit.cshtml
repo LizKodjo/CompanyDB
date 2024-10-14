@@ -1,17 +1,21 @@
 ﻿@model CompanyDB.Models.Company
 
 @{
-    ViewData["Title"] = "Create a Company";
+    ViewData["Title"] = "Edit Company";
 }
 
 
 <div class="col-ll mx-auto pt-0 p-0">
     <div class="card">
         <div class="card-header bg-success text-uppercase text-white" style="height:45px;">
-            <h4> Create a Company</h4>
+            <h4>Edit Company</h4>
         </div>
         
-        <form id="CompanyForm" enctype="multipart/form-data" asp-action="Create">
+        <form id="CompanyForm" enctype="multipart/form-data" asp-action="Edit">
+
+            <input type="hidden" asp-for="CompanyID"/>
+            <input type="hidden" asp-for="CompanyLogo" />
+
             <div class="container-fluid btn-group">
                 <div class="col-12">
                     <div class="row">
@@ -40,37 +44,20 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-                        <div class="col-md-6 btn-group">
-                            <div class="form-group col-8 p-0">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label asp-for="LogoImg" class="control-label"></label>
-                                
                                 <div class="custom-file">
-                                    <input asp-for="LogoImg" class="custom-file-input" id="customFile" />
+                                    <input asp-for="LogoImg" class="custom-file-input" id="customFile"/>
                                            @* onchange="document.getElementById('PreviewPhoto').src = window.URL.createObjectURL(this.files[0])" /> *@
-                                    <label class="custom-file-label" for="customFile"></label>
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
                                 </div>
                                 <span asp-validation-for="LogoImg" class="text-danger"></span>
                             </div>
 
-
-
-
-
-
-
-
-
-
-                            <div class="col-md-6">
-                                <div class="form-group col-10 justify-content-center">
-                                    <img id="PreviewPhoto" src="@Model.CompanyLogo" alt="Logo Image"
+                            <div class="col-4">
+                                <div class="form-group col-12 justify-content-center align-middle">
+                                    <img id="PreviewPhoto" src="~/images/@Model.LogoImg" alt="Logo Image"
                                          width="125" height="125" style="border:1px; margin-top:20px;" />
                                 </div>
 
@@ -106,13 +93,14 @@
                                                 <td>
                                                     <input asp-for="@Model.Employees[i].Email" class="form-control" />
                                                 </td>
-                                                <td>
+                                                <td>  
                                                     <input type="hidden" asp-for="@Model.Employees[i].IsDeleted" />
                                                     <input asp-for="@Model.Employees[i].Phone" class="form-control" />
                                                 </td>
-                                                @* <td> </td> *@
+                                                @* <td>  </td> *@
                                                 <td style="width: 60px;">
-                                                    <button id="btnremove-@i" type="button" class="btn btn-sm btn-danger visible" onclick="DeleteItem(this)">Delete</button>
+                                                    <button id="btnremove-@i" type="button" class="btn btn-sm btn-danger visible" 
+                                                    onclick="DeleteItem(this)">Delete</button>
                                                 </td>
                                             </tr>
                                         }
@@ -128,7 +116,7 @@
                                 <a asp-action="List" class="btn btn-secondary">Back</a>
                             </div>
                             <div class="col-6 form-group text-left p-2">
-                                <input type="submit" value="Create" class="btn btn-primary" />
+                                <input type="submit" value="Save" class="btn btn-primary" />
                             </div>
                         </div>
                     </div>

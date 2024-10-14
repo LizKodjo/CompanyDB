@@ -14,10 +14,12 @@ namespace CompanyDB.Controllers
             _context = context;
             _webHost = webHost;
         }
-        public IActionResult List()
+
+
+        public async  Task<IActionResult> List()
         {
             List<Company> companies;
-            companies = _context.Companies.ToList();
+            companies = await _context.Companies.ToListAsync();
             return View(companies);
         }
 
@@ -35,15 +37,22 @@ namespace CompanyDB.Controllers
         [HttpPost]
         public IActionResult Create(Company company)
         {
-            //foreach (Employee employee in company.Employees)
-            //{
-            //    if (employee.Company.CompanyName == null || employee.Company.CompanyName.Length == 0)
-            //    {
-            //        company.Employees.Remove(employee);
-            //    }
-            //}
+            company.Employees.RemoveAll(c => c.IsDeleted == true);
 
-            //string uniqueFileName = GetUploadedLogo(company);
+            if (company.LogoImg != null)
+            {
+                string logoFolder = "images/logo/";
+                logoFolder += Guid.NewGuid().ToString() + company.LogoImg.FileName;
+                company.CompanyLogo = logoFolder;
+
+                string serverFolder = Path.Combine(_webHost.WebRootPath, logoFolder);
+
+
+
+                company.LogoImg.CopyTo(new FileStream(serverFolder, FileMode.Create));
+            }
+
+            //IFormFile uniqueFileName = GetUploadedLogo(company);
             //company.LogoImg = uniqueFileName;
                 
             _context.Add(company);
@@ -53,9 +62,9 @@ namespace CompanyDB.Controllers
 
         #endregion
 
-        //private string GetUploadedLogo(Company company)
+        //private IFormFile GetUploadedLogo(Company company)
         //{
-        //    string uniqueFileName = null;
+        //    IFormFile uniqueFileName = null;
 
         //    if (company.CompanyLogo != null)
         //    {
@@ -74,7 +83,7 @@ namespace CompanyDB.Controllers
         public IActionResult Details(int id)
         {
             Company company = _context.Companies
-                .Include(c => c.Employees)
+                .Include(e => e.Employees)
                 .Where(c => c.CompanyID == id)
                 .FirstOrDefault();
             return View(company);
@@ -100,6 +109,47 @@ namespace CompanyDB.Controllers
             _context.SaveChanges();
             return RedirectToAction("List");
         }
+
+        #endregion
+
+        #region  -- Edit --
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Company company = _context.Companies
+                .Include(e => e.Employees)
+                .Where(c => c.CompanyID == id)
+                .FirstOrDefault();
+            return View(company);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Company company)
+        {
+            List<Employee> employees = _context.Employees
+                .Where(c => c.CompanyID==company.CompanyID).ToList();
+            _context.Employees.RemoveRange(employees);
+            _context.SaveChanges();
+            
+
+            company.Employees.RemoveAll(e => e.IsDeleted == true);
+
+            //if(company.CompanyLogo != null)
+            //{
+            //    //string uniqueFileName = GetLogo(company);
+            //    //company.LogoImg = uniqueFileName;
+
+            //}
+
+            _context.Attach(company);
+            _context.Entry(company).State = EntityState.Modified;
+            _context.Employees.AddRange(company.Employees);
+            _context.SaveChanges();
+            return RedirectToAction("List");
+        }
+
+
 
         #endregion
 

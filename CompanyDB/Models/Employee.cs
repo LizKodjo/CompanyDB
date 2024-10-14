@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompanyDB.Models
 {
@@ -18,6 +19,9 @@ namespace CompanyDB.Models
 
         [StringLength(15)]
         public string? Phone { get; set; }
+
+        [NotMapped]
+        public bool IsDeleted { get; set; } = false;
 
     }
 }

@@ -14,10 +14,11 @@ namespace CompanyDB.Models
         public string? CompanyEmail { get; set; }
 
 
-        [DisplayName("Logo")]        
+              
         public string? CompanyLogo { get; set; }
+        [DisplayName("Logo")]
         [NotMapped]
-        public IFormFile? LogoImg { get; set; }
+        public IFormFile LogoImg { get; set; }
 
 
         [StringLength(100)]

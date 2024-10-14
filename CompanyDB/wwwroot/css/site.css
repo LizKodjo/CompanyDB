@@ -20,3 +20,30 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.EmpTable table {
+    width: 100%
+}
+
+.EmpTable thead {
+    width: calc(100%-1em);
+}
+
+.EmpTable tbody {
+    display: block;
+    height: 140px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+    .EmpTable thead, .EmpTable tbody tr {
+        display: table;
+        width: 97%;
+        table-layout: fixed;
+    }
+
+.EmpTable thead, .EmpTable tbody, .EmpTable td {
+    border: none !important;
+}
+
