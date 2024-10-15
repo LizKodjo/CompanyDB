@@ -1,0 +1,71 @@
+﻿@model CompanyModel
+
+@{
+    ViewData["Title"] = "Company Details";
+    Layout = "_Layout";
+}
+
+<h1>Company Details</h1>
+
+<div class="container">
+    <div class="display-4">@Model.CompanyName</div>
+    <div class="row">
+        
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>@Model.CompanyEmail</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>@Model.CompanyWebsite</h3>
+                </div>
+            </div>        
+        </div>
+
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    @* <div class="align-items-center justify-content-center"> *@
+                        <img src="~/images/36-200x300.jpg"  alt="Logo" width="100" height="100" style="vertical-align:super;"/>
+                    @* </div> *@
+                </div>
+                    
+            </div>
+        </div>
+
+        <hr />
+        <div class="col-md-12">
+            <h4>Employees</h4>
+        </div>     
+
+       @for (int i = 0; i < 5; i++)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="bd-placeholder-img card-img-top" width="100%" height="225">
+                        <div class="card-body">
+                            <h4 class="card-title">Liz Testing</h4>
+                            <p class="card-text">liz@test.com</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-sm btn-outline-secondary">Company</a>
+                                </div>
+                                <small class="text-muted">Phone number</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-outline-primary">Back</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

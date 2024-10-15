@@ -1,11 +1,10 @@
-﻿using CompanyDB.ViewModel;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CompanyDB.Models
+namespace CompanyDB.ViewModel
 {
-    public class Company
+    public class CompanyViewModel
     {
         public int CompanyID { get; set; }
 
@@ -28,6 +27,6 @@ namespace CompanyDB.Models
         public string? CompanyWebsite { get; set; }
 
         public virtual List<EmployeeViewModel> Employees { get; set; } = new List<EmployeeViewModel>();
+
     }
 }
-

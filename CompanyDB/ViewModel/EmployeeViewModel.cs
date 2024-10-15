@@ -1,9 +1,9 @@
-﻿using CompanyDB.ViewModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CompanyDB.Models
+namespace CompanyDB.ViewModel
 {
-    public class Employee
+    public class EmployeeViewModel
     {
         public int EmployeeID { get; set; }
         public int CompanyID { get; set; }
@@ -19,5 +19,9 @@ namespace CompanyDB.Models
 
         [StringLength(15)]
         public string? Phone { get; set; }
+
+        [NotMapped]
+        public bool IsDeleted { get; set; } = false;
+
     }
 }

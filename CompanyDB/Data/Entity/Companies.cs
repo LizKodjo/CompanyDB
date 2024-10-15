@@ -1,12 +1,13 @@
-﻿using CompanyDB.ViewModel;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
+using CompanyDB.ViewModel;
 
-namespace CompanyDB.Models
+namespace CompanyDB.Data.Entity
 {
-    public class Company
-    {
+    public class Companies
+    { 
         public int CompanyID { get; set; }
 
         [DisplayName("Name")]
@@ -30,4 +31,3 @@ namespace CompanyDB.Models
         public virtual List<EmployeeViewModel> Employees { get; set; } = new List<EmployeeViewModel>();
     }
 }
-

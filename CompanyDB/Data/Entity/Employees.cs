@@ -1,9 +1,9 @@
 ﻿using CompanyDB.ViewModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CompanyDB.Models
+namespace CompanyDB.Data.Entity
 {
-    public class Employee
+    public class Employees
     {
         public int EmployeeID { get; set; }
         public int CompanyID { get; set; }
