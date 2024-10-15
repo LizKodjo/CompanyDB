@@ -1,5 +1,6 @@
 ﻿using CompanyDB.Data;
 using CompanyDB.Models;
+using CompanyDB.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,12 +10,19 @@ namespace CompanyDB.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _webHost;
+        private readonly CompanyRepository _companyRepository;
         public CompanyController(AppDbContext context, IWebHostEnvironment webHost)
         {
             _context = context;
             _webHost = webHost;
+            _companyRepository = new CompanyRepository();
         }
 
+        public ViewResult GetCompanies()
+        {
+            var data = _companyRepository.GetCompanies();
+            return View(data);
+        }
 
         public async  Task<IActionResult> List()
         {
