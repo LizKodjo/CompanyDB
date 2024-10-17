@@ -2,73 +2,77 @@
 using CompanyDB.Data.Entity;
 using CompanyDB.Models;
 using CompanyDB.ViewModel;
+using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CompanyDB.Repository
 {
     public class CompanyRepository
     {
-        private readonly AppDbContext _context = null;
-        public CompanyRepository(AppDbContext contex)
+        private readonly AppDbContext _context;
+        public CompanyRepository(AppDbContext context)
         {
-            _context = contex;
+            _context = context;
         }
 
-        public int AddCompany(CompanyViewModel model)
+        public async Task<int>AddCompany(CompanyModel model)
         {
-            var newCompany = new Company()
+            var newCompany = new CompanyModel()
             { 
                 CompanyName = model.CompanyName,
                 CompanyEmail = model.CompanyEmail,
                 CompanyLogo = model.CompanyLogo,
                 CompanyWebsite = model.CompanyWebsite,
-               Employees = model.Employees,
+               //Employees = model.Employees,
 
             };
 
-            _context.Companies.Add(newCompany);
-            _context.SaveChanges();
+            await _context.Companies.AddAsync(newCompany);
+            await _context.SaveChangesAsync();
             return newCompany.CompanyID;
         }
-        public List<CompanyViewModel> GetCompanies()
+        public async Task<List<CompanyModel>> GetCompanies()
         {
-            return DataSource();
+            var companies = new List<CompanyModel>();
+            var allcompanies = await _context.Companies.ToListAsync();
+            if (allcompanies?.Any() == true)
+            {
+                foreach (var company in allcompanies)
+                {
+                    companies.Add(new CompanyModel()
+                    {
+                        CompanyName = company.CompanyName,
+                        CompanyEmail = company.CompanyEmail,
+                        CompanyLogo = company.CompanyLogo,
+                        CompanyWebsite = company.CompanyWebsite
+                    });
+                }
+            }
+            return companies;
         }
         public List<EmployeeViewModel> GetEmployees()
         {
-            return EmployeeData();
+            return null;
         }
 
-        public CompanyViewModel GetCompanyById(int id)
+        public async Task<CompanyModel> GetCompanyById(int id)
         {
-            return DataSource().Where(c => c.CompanyID == id).FirstOrDefault();
+            return await _context.Companies.Where(c => c.CompanyID == id)
+                .Select(company => new CompanyModel()
+                {
+                    CompanyName = company.CompanyName,
+                    CompanyEmail = company.CompanyEmail,
+                    CompanyLogo = company.CompanyLogo,
+                    CompanyWebsite = company.CompanyWebsite
+                }).FirstOrDefaultAsync();
+            
         }
+
         public List<CompanyViewModel> SearchCompany(string name)
         {
-            return DataSource().Where(c => c.CompanyName.Contains(name)).ToList();
-        }
+            return null;
+        }    
 
-        private List<CompanyViewModel> DataSource()
-        {
-            return new List<CompanyViewModel>()
-            {
-                new CompanyViewModel(){CompanyID=1, CompanyName="Liz Ltd", CompanyLogo="hellologo",CompanyEmail="test@test.com",
-                CompanyWebsite="www.liz.com"},
-                new CompanyViewModel() {CompanyID=2, CompanyName="lizzy company", CompanyLogo="hiLogo", CompanyEmail="liz@test.com",
-                CompanyWebsite="www.test.com" },
-                new CompanyViewModel{CompanyID=3,CompanyName="John IT Ltd", CompanyLogo="Microsoft", CompanyEmail="john@test.com",
-                CompanyWebsite="www.john.com" }
-
-            };
-        }
-
-        private List<EmployeeViewModel> EmployeeData() {
-            return new List<EmployeeViewModel>()
-            {
-                new EmployeeViewModel(){EmployeeID=1, FirstName="LizBeth", LastName="Testing", Email="liz@test.com", Phone="01256894" },
-                new EmployeeViewModel(){EmployeeID=2, FirstName="John", LastName="Doe", Email="john@test.com", Phone="025698745" },
-                new EmployeeViewModel() {EmployeeID=3, FirstName="Iron", LastName="Man", Email="iron@test.com", Phone="01259873" },
-                new EmployeeViewModel{EmployeeID=4,FirstName="Fiona", LastName="Shrek", Email="fiona@test.com", Phone="014578963" }
-            };
-        }
+        
     }
 }

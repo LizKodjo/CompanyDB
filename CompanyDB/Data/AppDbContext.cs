@@ -8,7 +8,7 @@ namespace CompanyDB.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Company> Companies { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        public DbSet<CompanyModel> Companies { get; set; }
+        public DbSet<EmployeeModel> Employees { get; set; }
     }
 }

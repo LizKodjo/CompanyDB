@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CompanyDB.Models;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompanyDB.ViewModel
@@ -7,7 +8,7 @@ namespace CompanyDB.ViewModel
     {
         public int EmployeeID { get; set; }
         public int CompanyID { get; set; }
-        public virtual CompanyViewModel? Company { get; private set; }
+        public virtual CompanyModel? Company { get; private set; }
 
         [StringLength(50)]
         public required string FirstName { get; set; }

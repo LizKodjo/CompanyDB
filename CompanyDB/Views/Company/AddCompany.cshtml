@@ -1,5 +1,6 @@
-﻿@using CompanyDB.ViewModel;
-@model Company
+﻿@* @using CompanyDB.ViewModel *@
+
+@model CompanyModel
 @{
     ViewData["Title"] = "AddCompany";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,11 +9,27 @@
 @* <h1>AddCompany</h1> *@
 
 <div class="container">
-    <form method="post" enctype="multipart/form-data" asp-action="AddCompany">
+
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <strong>Congratulations</strong> You have added a company successfully. <br />
+            Click <a asp-controller="Company" asp-action="GetCompany" asp-route-id="@ViewBag.CompanyId">here</a> to view the details
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <form method="post" enctype="multipart/form-data" asp-action="AddCompany" asp-controller="Company">
+        
         <h3 class="display-5">Add a company</h3>
+        <hr/>       
+       
         <div class="form-group">
             <label asp-for="CompanyName"></label>
             <input asp-for="CompanyName" class="form-control" />
+            <span asp-validation-for="CompanyName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -20,13 +37,31 @@
             <input asp-for="CompanyEmail" class="form-control" />
         </div>
         <div class="form-group">
-            <label asp-for="CompanyLogo"></label>
-            <input asp-for="CompanyLogo" class="form-control" />
+            <label asp-for="LogoImg"></label>
+            @* <input asp-for="CompanyLogo" class="form-control" /> *@
+            
+
+            <div class="input-group mb-3">
+                <input asp-for="LogoImg" class="form-control" id="inputGroupFile02">
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+
+            
+            <span asp-validation-for="LogoImg" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="CompanyWebsite"></label>
             <input asp-for="CompanyWebsite" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Employees"></label>
+            <select asp-for="Employees" class="form-control">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            
         </div>
 
         <div class="form-group">

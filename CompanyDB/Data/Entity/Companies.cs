@@ -28,6 +28,8 @@ namespace CompanyDB.Data.Entity
         [StringLength(100)]
         public string? CompanyWebsite { get; set; }
 
-        public virtual List<EmployeeViewModel> Employees { get; set; } = new List<EmployeeViewModel>();
+        public ICollection<Employees> Employees { get; set; }
+
+        //public virtual List<EmployeeViewModel> Employees { get; set; } = new List<EmployeeViewModel>();
     }
 }

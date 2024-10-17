@@ -2,11 +2,12 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanyDB.Models
 {
-    public class Company
-    {
+    public class CompanyModel
+    {               
         public int CompanyID { get; set; }
 
         [DisplayName("Name")]
@@ -27,7 +28,7 @@ namespace CompanyDB.Models
         [StringLength(100)]
         public string? CompanyWebsite { get; set; }
 
-        public virtual List<EmployeeViewModel> Employees { get; set; } = new List<EmployeeViewModel>();
+        public virtual List<EmployeeModel> Employees { get; set; } = new List<EmployeeModel>();
     }
 }
 

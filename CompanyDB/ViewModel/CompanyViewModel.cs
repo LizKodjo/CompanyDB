@@ -20,7 +20,7 @@ namespace CompanyDB.ViewModel
         public string? CompanyLogo { get; set; }
         [DisplayName("Logo")]
         [NotMapped]
-        public IFormFile LogoImg { get; set; }
+        public IFormFile? LogoImg { get; set; }
 
         [DisplayName("Website")]
         [StringLength(100)]

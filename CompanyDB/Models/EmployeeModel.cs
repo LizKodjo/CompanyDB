@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CompanyDB.Models
 {
-    public class Employee
+    public class EmployeeModel
     {
         public int EmployeeID { get; set; }
         public int CompanyID { get; set; }
-        public virtual CompanyViewModel? Company { get; private set; }
+        public virtual CompanyModel? Company { get; private set; }
 
         [StringLength(50)]
         public required string FirstName { get; set; }
