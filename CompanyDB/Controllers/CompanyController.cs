@@ -1,11 +1,7 @@
 ﻿using CompanyDB.Data;
 using CompanyDB.Models;
 using CompanyDB.Repository;
-using CompanyDB.ViewModel;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.Design;
 
 namespace CompanyDB.Controllers
 {
@@ -14,29 +10,25 @@ namespace CompanyDB.Controllers
         
         private readonly AppDbContext _context;
 
-        //private readonly EmployeeRepository _employeeRepository;
+        private readonly EmployeeRepository _employeeRepository;
         private readonly CompanyRepository _companyRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
    
-        public CompanyController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
+        public CompanyController(AppDbContext context,EmployeeRepository employeeRepository, IWebHostEnvironment webHostEnvironment,
+            CompanyRepository companyRepository)
         {
             _context = context;
+            _employeeRepository = employeeRepository;
             _webHostEnvironment = webHostEnvironment;
+            _companyRepository = companyRepository;
            
-            //_employeeRepository = employeeRepository;
+            
         }
 
         public async Task<ViewResult> GetCompanies()
         {
             var companies = await _companyRepository.GetCompanies();
             return View(companies);
-        }
-
-        public ViewResult GetEmployees()
-        {
-            var employees = _companyRepository.GetEmployees();
-            return View(employees);
-            
         }
 
         [Route("company-details/{id}", Name ="companyDetailsRoute")]
@@ -46,15 +38,16 @@ namespace CompanyDB.Controllers
             return View(company);
         }
 
-        public List<CompanyViewModel> SearchCompany(string name)
+        public async Task<List<CompanyModel>> SearchCompany(string name)
         {
-            return _companyRepository.SearchCompany(name);
+            return await _companyRepository.SearchCompany(name);
         }
 
-        public ViewResult AddCompany(bool isSuccess = false, int companyId = 0)
+        [HttpGet]
+        public async Task<ActionResult> AddCompany(bool isSuccess = false, int companyId = 0)
         {
-
             //var employees = await _employeeRepository.GetEmployees();
+
             ViewBag.IsSuccess = isSuccess;
             ViewBag.CompanyId = companyId;
             return View();
@@ -80,6 +73,8 @@ namespace CompanyDB.Controllers
                     return RedirectToAction(nameof(AddCompany), new { isSuccess = true, companyId = id });
                 }
             }
+
+            //ViewBag.Employees = await _employeeRepository.GetEmployees();
             return View();
         }
     }

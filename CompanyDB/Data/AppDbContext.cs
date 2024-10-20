@@ -1,5 +1,4 @@
 ﻿using CompanyDB.Data.Entity;
-using CompanyDB.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyDB.Data
@@ -8,7 +7,7 @@ namespace CompanyDB.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<CompanyModel> Companies { get; set; }
-        public DbSet<EmployeeModel> Employees { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Employee> Employees { get; set; }
     }
 }

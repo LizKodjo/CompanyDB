@@ -1,9 +1,9 @@
 ﻿@* @using CompanyDB.Models; *@
-    @using CompanyDB.ViewModel;
+    @using CompanyDB.Models;
     @{
         ViewData["Title"] = "All Companies";
     }
-@model IEnumerable<CompanyViewModel>
+@model IEnumerable<CompanyModel>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -11,10 +11,8 @@
     Layout = "_Layout";
 }
 
-
-
 <div class="container">
-    <h3>Companies</h3>
+    <h3 class="display-4">Companies</h3>
     <div class="row">
         @foreach (var company in Model)
         {

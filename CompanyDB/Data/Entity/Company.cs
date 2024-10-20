@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
-using CompanyDB.ViewModel;
 
 namespace CompanyDB.Data.Entity
 {
-    public class Companies
+    public class Company
     { 
         public int CompanyID { get; set; }
 
@@ -22,13 +20,13 @@ namespace CompanyDB.Data.Entity
         public string? CompanyLogo { get; set; }
         [DisplayName("Logo")]
         [NotMapped]
-        public IFormFile LogoImg { get; set; }
+        public IFormFile? LogoImg { get; set; }
 
         [DisplayName("Website")]
         [StringLength(100)]
         public string? CompanyWebsite { get; set; }
 
-        public ICollection<Employees> Employees { get; set; }
+        public ICollection<Employee>? Employees { get; set; }
 
         //public virtual List<EmployeeViewModel> Employees { get; set; } = new List<EmployeeViewModel>();
     }

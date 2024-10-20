@@ -1,34 +1,26 @@
-﻿using CompanyDB.ViewModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CompanyDB.Models
 {
     public class CompanyModel
-    {               
+    {
         public int CompanyID { get; set; }
 
-        [DisplayName("Name")]
-        [StringLength(100)]
+        [StringLength(150)]
+        [Required(ErrorMessage ="Please enter the Company name")]
+        [Display(Name = "Company Name")]
         public required string CompanyName { get; set; }
 
-        [DisplayName("Email")]
-        [StringLength(100)]
+        [StringLength(150)]
+        [Display(Name = "Email")]
         public string? CompanyEmail { get; set; }
 
-
+        [Display(Name = "Logo")]
         public string? CompanyLogo { get; set; }
-        [DisplayName("Logo")]
-        [NotMapped]
-        public IFormFile LogoImg { get; set; }
+        public IFormFile? LogoImg { get; set; }
 
-        [DisplayName("Website")]
-        [StringLength(100)]
+        [StringLength(200)]
+        [Display(Name ="Website")]
         public string? CompanyWebsite { get; set; }
-
-        public virtual List<EmployeeModel> Employees { get; set; } = new List<EmployeeModel>();
     }
 }
-

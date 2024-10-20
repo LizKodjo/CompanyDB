@@ -1,14 +1,12 @@
-﻿using CompanyDB.Models;
-using CompanyDB.ViewModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CompanyDB.Data.Entity
 {
-    public class Employees
+    public class Employee
     {
         public int EmployeeID { get; set; }
         public int CompanyID { get; set; }
-        public virtual Companies? Company { get; private set; }
+        public virtual Company? Company { get; private set; }
 
         [StringLength(50)]
         public required string FirstName { get; set; }
@@ -19,8 +17,7 @@ namespace CompanyDB.Data.Entity
         public string? Email { get; set; }
 
         [StringLength(15)]
-        public string? Phone { get; set; }
+        public string? Phone { get; set; }      
 
-        
     }
 }
