@@ -9,7 +9,7 @@ namespace CompanyDB.Models
         [StringLength(150)]
         [Required(ErrorMessage ="Please enter the Company name")]
         [Display(Name = "Company Name")]
-        public required string CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
         [StringLength(150)]
         [Display(Name = "Email")]

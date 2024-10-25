@@ -1,15 +1,7 @@
-﻿@* @using CompanyDB.Models; *@
-    @using CompanyDB.Models;
-    @{
-        ViewData["Title"] = "All Companies";
-    }
-@model IEnumerable<CompanyModel>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    Layout = "_Layout";
+﻿@{
+    ViewData["Title"] = "All Companies";
 }
+@model IEnumerable<CompanyModel>
 
 <div class="container">
     <h3 class="display-4">Companies</h3>
@@ -17,23 +9,8 @@
         @foreach (var company in Model)
         {
             <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="bd-placeholder-img card-img-top" width="100%" height="225">
-                        <div class="card-body">
-                            <h4 class="card-title">@company.CompanyName</h4>
-                            <p class="card-text">@company.CompanyWebsite</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a asp-route="companyDetailsRoute" asp-route-id="@company.CompanyID"
-                                       class="btn btn-sm btn-outline-secondary">View details</a>
-                                </div>
-                                <small class="text-muted">@company.CompanyLogo</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <partial name="_companyDetails" model="@company" />               
             </div>
-        }
-        
+        }        
     </div>
 </div>

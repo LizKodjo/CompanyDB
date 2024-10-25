@@ -1,7 +1,7 @@
 ﻿@model CompanyModel
 @{
     ViewData["Title"] = "Add Company";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    // Layout = "_Layout";
 }
 
 
@@ -13,7 +13,7 @@
             <strong>Congratulations</strong> You have added a company successfully. <br />
             Click <a asp-controller="Company" asp-action="GetCompany" asp-route-id="@ViewBag.CompanyId">here</a> to view the details
             <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+                @* <span aria-hidden="true">&times;</span> *@
             </button>
         </div>
     }

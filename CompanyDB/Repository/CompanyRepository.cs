@@ -8,7 +8,7 @@ namespace CompanyDB.Repository
     public class CompanyRepository
     {
 
-        private readonly AppDbContext _context = null;
+        private readonly AppDbContext _context;
 
         public CompanyRepository(AppDbContext context)
         {
@@ -30,43 +30,45 @@ namespace CompanyDB.Repository
             return newCompany.CompanyID; 
         }
 
-        public async Task<List<CompanyModel>>? GetCompanies()
+        public async Task<List<CompanyModel>> GetCompanies()
         {
-            var companies = new List<CompanyModel>();
-            var allcompanies = await _context.Companies.ToListAsync();
-            if (allcompanies?.Any() == true)
-            {
-                foreach (var company in allcompanies)
-                {
-                    companies.Add(new CompanyModel()
-                    {
-                        CompanyName = company.CompanyName,
-                        CompanyEmail = company.CompanyEmail,
-                        CompanyLogo = company.CompanyLogo,
-                        CompanyWebsite = company.CompanyWebsite
-                    });
-                }
-            }
-            return companies;
+            return await _context.Companies
+                .Select(company => new CompanyModel()
+                { 
+                    CompanyName = company.CompanyName, 
+                    CompanyEmail = company.CompanyEmail, 
+                    CompanyLogo = company.CompanyLogo, 
+                    CompanyWebsite = company.CompanyWebsite 
+                }).ToListAsync();
+
         }
 
 
-        public async Task<CompanyModel> GetCompanyById(int id)
+
+        public async Task<List<CompanyModel>> GetCompaniesAsync()
         {
-            var company = await _context.Companies.FindAsync(id);
-            //_context.Companies.Where(c => c.CompanyID == id).FirstOrDefaultAsync();
-            if (company != null)
-            {
-                var companyDetails = new CompanyModel()
+            return await _context.Companies
+                .Select(company => new CompanyModel()
                 {
                     CompanyName = company.CompanyName,
                     CompanyEmail = company.CompanyEmail,
                     CompanyLogo = company.CompanyLogo,
                     CompanyWebsite = company.CompanyWebsite
-                };
-                return companyDetails;
-            }
-            return null;
+                }).Take(5).ToListAsync();
+
+        }
+
+
+        public async Task<CompanyModel> GetCompanyById(int id)
+        {
+            return await _context.Companies.Where(c => c.CompanyID == id)
+                .Select(company => new CompanyModel()
+                {
+                    CompanyName = company.CompanyName,
+                    CompanyEmail = company.CompanyEmail,
+                    CompanyLogo = company.CompanyLogo,
+                    CompanyWebsite = company.CompanyWebsite,
+                }).FirstOrDefaultAsync();
         }
         public async Task<List<CompanyModel>> SearchCompany(string name)
         {
